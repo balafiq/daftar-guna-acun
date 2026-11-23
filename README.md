@@ -5,4 +5,5 @@ Kiraan detik PHI (tempoh larangan menuai): masukkan jenis tanaman, tarikh & masa
 Buka `index.html` dalam pelayar. Tiada build diperlukan (Tailwind dimuatkan dari CDN).
 
 - Senarai tanaman disimpan dalam LocalStorage pelayar, jadi kekal selepas refresh.
+- Emoji beranimasi daripada Noto Animated Emoji (Google); jika tidak dapat dimuatkan, emoji biasa dipaparkan.
 - Tekan **Hidupkan Notifikasi** untuk dapat notifikasi bila tanaman sedia dituai (hanya selagi page dibuka).
