@@ -3,153 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengurus Tuai Comel 🌱</title>
-    <!-- Memuatkan font Quicksand dari Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Memuatkan Tailwind CSS -->
+    <title>Pengurus Tuai 🌱</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Konfigurasi Tema Tailwind untuk warna hijau muda -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Quicksand', 'sans-serif'],
+                        display: ['Fredoka', 'Quicksand', 'sans-serif'],
                     },
                     colors: {
+                        // Latar krim lembut
+                        cream: { 50: '#fffdf8', 100: '#fff8ec', 200: '#fdefd8' },
+                        // Hijau matcha (warna utama)
                         matcha: {
-                            50: '#f2fcf5',
-                            100: '#e1f8e8',
-                            200: '#c3efd1',
-                            300: '#95e0b0',
-                            400: '#5ec986',
-                            500: '#39ac65',
-                            600: '#28894e',
-                            700: '#236c40',
-                            800: '#205635',
-                            900: '#1b472e',
-                        }
+                            50: '#f1faf3', 100: '#ddf3e2', 200: '#bce6c7', 300: '#8fd3a3',
+                            400: '#62bd7f', 500: '#43a263', 600: '#33834e', 700: '#2b6841',
+                            800: '#255337', 900: '#1f452f',
+                        },
+                        // Pic (aksen)
+                        peach: { 50: '#fff4f0', 100: '#ffe6dd', 200: '#ffcbbb', 300: '#ffa98f', 400: '#f98667', 500: '#ea6a49' },
+                        // Kuning mentega (hampir sedia)
+                        butter: { 50: '#fffbea', 100: '#fff3c4', 200: '#ffe78f', 300: '#fcd45a', 400: '#f2bd2c', 500: '#c99412' },
                     },
                     boxShadow: {
-                        'soft-green': '0 10px 25px -5px rgba(94, 201, 134, 0.2), 0 8px 10px -6px rgba(94, 201, 134, 0.1)',
-                    }
+                        'soft': '0 12px 30px -12px rgba(67, 162, 99, 0.28), 0 4px 10px -6px rgba(67, 162, 99, 0.12)',
+                        'soft-lg': '0 22px 45px -18px rgba(67, 162, 99, 0.35), 0 6px 14px -8px rgba(67, 162, 99, 0.15)',
+                        'peach': '0 12px 28px -12px rgba(234, 106, 73, 0.35)',
+                    },
                 }
             }
         }
     </script>
 
     <style>
-        /* Gaya tambahan untuk animasi dan kelancaran */
         body {
-            background-color: #f2fcf5; /* matcha-50 */
-            background-image: radial-gradient(#e1f8e8 1px, transparent 1px); /* corak titik comel */
-            background-size: 20px 20px;
-        }
-        
-        .cute-input {
-            transition: all 0.3s ease;
-        }
-        
-        .cute-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(94, 201, 134, 0.2);
+            background-color: #fff8ec;
+            background-image:
+                radial-gradient(circle at 10% 0%, rgba(188, 230, 199, 0.55) 0, transparent 38%),
+                radial-gradient(circle at 95% 15%, rgba(255, 203, 187, 0.45) 0, transparent 32%),
+                radial-gradient(circle at 50% 100%, rgba(255, 231, 143, 0.35) 0, transparent 40%),
+                radial-gradient(rgba(67, 162, 99, 0.10) 1.2px, transparent 1.2px);
+            background-size: auto, auto, auto, 22px 22px;
+            background-attachment: fixed;
         }
 
-        .ready-pulse {
-            animation: pulse-green 2s infinite;
+        /* Emoji beranimasi */
+        .emoji { display: inline-block; vertical-align: middle; object-fit: contain; user-select: none; }
+        .emoji-text { display: inline-flex; align-items: center; justify-content: center; line-height: 1; vertical-align: middle; }
+
+        /* Input comel */
+        .cute-input { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease, background-color .25s ease; }
+        .cute-input:focus { outline: none; transform: translateY(-1px); background-color: #fff; border-color: #8fd3a3; box-shadow: 0 0 0 4px rgba(143, 211, 163, 0.30); }
+
+        /* Animasi */
+        @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+        @keyframes drift { 0% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(14px, -10px) rotate(6deg); } 50% { transform: translate(28px, 2px) rotate(-4deg); } 75% { transform: translate(10px, 10px) rotate(4deg); } 100% { transform: translate(0, 0) rotate(0deg); } }
+        @keyframes pop-in { 0% { opacity: 0; transform: translateY(14px) scale(.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes pop-out { to { opacity: 0; transform: scale(.9) translateY(8px); } }
+        @keyframes tick { 0% { transform: translateY(-3px); opacity: .4; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(67, 162, 99, .35); } 50% { box-shadow: 0 0 0 10px rgba(67, 162, 99, 0); } }
+        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 16px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes stripes { from { background-position: 0 0; } to { background-position: 24px 0; } }
+
+        .floaty { animation: floaty 3.6s ease-in-out infinite; }
+        .drift { animation: drift 14s ease-in-out infinite; }
+        .pop-in { animation: pop-in .45s cubic-bezier(.2, .9, .3, 1.2) both; }
+        .pop-out { animation: pop-out .3s ease forwards; }
+        .tick { animation: tick .3s ease; }
+        .glow { animation: glow 2.2s ease-in-out infinite; }
+        .toast-in { animation: toast-in .35s cubic-bezier(.2, .9, .3, 1.2) both; }
+        .progress-stripes {
+            background-image: linear-gradient(45deg, rgba(255,255,255,.28) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.28) 50%, rgba(255,255,255,.28) 75%, transparent 75%, transparent);
+            background-size: 24px 24px;
+            animation: stripes 1.2s linear infinite;
         }
 
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(57, 172, 101, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(57, 172, 101, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(57, 172, 101, 0); }
+        @media (prefers-reduced-motion: reduce) {
+            .floaty, .drift, .pop-in, .tick, .glow, .toast-in, .progress-stripes { animation: none !important; }
         }
+
+        /* Ikon kalendar input tarikh berwarna hijau */
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator { opacity: .6; cursor: pointer; }
     </style>
 </head>
-<body class="text-matcha-900 min-h-screen p-4 md:p-8 font-sans selection:bg-matcha-300 selection:text-matcha-900">
+<body class="text-matcha-900 min-h-screen font-sans selection:bg-matcha-200 selection:text-matcha-900 overflow-x-hidden">
 
-    <div class="max-w-6xl mx-auto">
-        <!-- Pengepala Aplikasi -->
-        <header class="text-center mb-10 mt-4">
-            <div class="inline-block bg-white px-6 py-3 rounded-full shadow-soft-green mb-4 border border-matcha-100">
-                <h1 class="text-3xl md:text-4xl font-bold text-matcha-600 flex items-center justify-center gap-3">
-                    <span>🌱</span> Pengurus Tuai <span>🚜</span>
-                </h1>
+    <!-- Hiasan terbang -->
+    <div class="pointer-events-none fixed inset-0 -z-0 overflow-hidden" aria-hidden="true">
+        <div class="absolute top-24 left-[6%] drift opacity-80 hidden md:block" data-emoji="1f98b" data-char="🦋" data-size="40"></div>
+        <div class="absolute top-[55%] right-[5%] drift opacity-80 hidden md:block" style="animation-delay:-5s" data-emoji="1f41d" data-char="🐝" data-size="34"></div>
+        <div class="absolute bottom-10 left-[12%] drift opacity-70 hidden md:block" style="animation-delay:-9s" data-emoji="1f343" data-char="🍃" data-size="34"></div>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-6 md:px-8 md:py-10">
+
+        <!-- Pengepala -->
+        <header class="text-center mb-8 md:mb-10">
+            <div class="inline-flex items-center gap-3 bg-white/90 backdrop-blur px-6 py-3 md:px-8 md:py-4 rounded-full shadow-soft border-2 border-matcha-100">
+                <span class="floaty" data-emoji="1f331" data-char="🌱" data-size="44"></span>
+                <h1 class="font-display text-3xl md:text-5xl font-bold text-matcha-600 tracking-tight">Pengurus Tuai</h1>
+                <span class="floaty" style="animation-delay:-1.8s" data-emoji="1f69c" data-char="🚜" data-size="44"></span>
             </div>
-            <p class="text-matcha-700 font-medium">Jejaki masa menuai tanaman anda dengan mudah & selamat! 🍏</p>
+            <p class="mt-4 text-matcha-700 font-semibold text-base md:text-lg flex items-center justify-center gap-2">
+                Jejaki masa menuai tanaman dengan mudah &amp; selamat
+                <span data-emoji="1f340" data-char="🍀" data-size="26"></span>
+            </p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Bahagian Borang -->
-            <div class="lg:col-span-1">
-                <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-soft-green border border-matcha-100 relative overflow-hidden">
-                    <!-- Hiasan latar belakang -->
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-matcha-100 rounded-full opacity-50"></div>
-                    
-                    <h2 class="text-xl font-bold mb-6 text-matcha-800 relative z-10 flex items-center gap-2">
-                        <span>📝</span> Tambah Tanaman Baru
+        <!-- Ringkasan -->
+        <section id="stats" class="grid grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8 max-w-xl mx-auto" aria-label="Ringkasan">
+            <div class="bg-white/90 rounded-3xl border-2 border-matcha-100 shadow-soft px-3 py-3 text-center">
+                <div class="flex justify-center mb-1" data-emoji="1f96c" data-char="🥬" data-size="28"></div>
+                <div id="statTotal" class="font-display text-2xl font-bold text-matcha-700">0</div>
+                <div class="text-[0.7rem] font-bold uppercase tracking-wider text-matcha-500">Tanaman</div>
+            </div>
+            <div class="bg-white/90 rounded-3xl border-2 border-butter-100 shadow-soft px-3 py-3 text-center">
+                <div class="flex justify-center mb-1" data-emoji="23f3" data-char="⏳" data-size="28"></div>
+                <div id="statWaiting" class="font-display text-2xl font-bold text-butter-500">0</div>
+                <div class="text-[0.7rem] font-bold uppercase tracking-wider text-butter-500">Menunggu</div>
+            </div>
+            <div class="bg-white/90 rounded-3xl border-2 border-matcha-200 shadow-soft px-3 py-3 text-center">
+                <div class="flex justify-center mb-1" data-emoji="2705" data-char="✅" data-size="28"></div>
+                <div id="statReady" class="font-display text-2xl font-bold text-matcha-600">0</div>
+                <div class="text-[0.7rem] font-bold uppercase tracking-wider text-matcha-500">Sedia</div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+
+            <!-- Borang -->
+            <aside class="lg:col-span-1 lg:sticky lg:top-6">
+                <div class="bg-white rounded-[2rem] p-6 md:p-7 shadow-soft-lg border-2 border-matcha-100 relative overflow-hidden">
+                    <div class="absolute -top-12 -right-12 w-36 h-36 bg-peach-100 rounded-full" aria-hidden="true"></div>
+                    <div class="absolute -bottom-16 -left-10 w-32 h-32 bg-matcha-50 rounded-full" aria-hidden="true"></div>
+
+                    <h2 class="relative font-display text-xl md:text-2xl font-bold mb-6 text-matcha-800 flex items-center gap-2">
+                        <span data-emoji="1f337" data-char="🌷" data-size="32"></span>
+                        Tambah Tanaman
                     </h2>
-                    
-                    <form id="harvestForm" class="space-y-5 relative z-10">
+
+                    <form id="harvestForm" class="relative space-y-5">
                         <div>
-                            <label for="cropName" class="block text-sm font-semibold text-matcha-700 mb-2">Jenis Tanaman 🥬</label>
-                            <input type="text" id="cropName" required placeholder="Cth: Cili Padi, Bayam..." 
-                                class="cute-input w-full px-4 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50 focus:outline-none focus:border-matcha-400 text-matcha-800 placeholder-matcha-300">
+                            <label for="cropName" class="flex items-center gap-1.5 text-sm font-bold text-matcha-700 mb-2">
+                                <span data-emoji="1f96c" data-char="🥬" data-size="22"></span> Jenis Tanaman
+                            </label>
+                            <input type="text" id="cropName" required maxlength="40" autocomplete="off" placeholder="Cth: Cili Padi, Bayam..."
+                                class="cute-input w-full px-4 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50/70 text-matcha-800 font-semibold placeholder:text-matcha-300 placeholder:font-medium">
                         </div>
-                        
+
                         <div>
-                            <label for="sprayDate" class="block text-sm font-semibold text-matcha-700 mb-2">Tarikh & Masa Meracun 💦</label>
-                            <input type="datetime-local" id="sprayDate" required 
-                                class="cute-input w-full px-4 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50 focus:outline-none focus:border-matcha-400 text-matcha-800">
+                            <label for="sprayDate" class="flex items-center gap-1.5 text-sm font-bold text-matcha-700 mb-2">
+                                <span data-emoji="1f327_fe0f" data-char="🌧️" data-size="22"></span> Tarikh &amp; Masa Meracun
+                            </label>
+                            <input type="datetime-local" id="sprayDate" required
+                                class="cute-input w-full px-4 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50/70 text-matcha-800 font-semibold">
                         </div>
-                        
+
                         <div>
-                            <label for="safeDays" class="block text-sm font-semibold text-matcha-700 mb-2">Tempoh Larangan Menuai (Hari) ⏳</label>
-                            <input type="number" id="safeDays" required min="0" step="1" placeholder="Cth: 14" 
-                                class="cute-input w-full px-4 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50 focus:outline-none focus:border-matcha-400 text-matcha-800 placeholder-matcha-300">
+                            <label for="safeDays" class="flex items-center gap-1.5 text-sm font-bold text-matcha-700 mb-2">
+                                <span data-emoji="23f3" data-char="⏳" data-size="22"></span> Tempoh Larangan Menuai
+                            </label>
+                            <div class="relative">
+                                <input type="number" id="safeDays" required min="0" max="365" step="1" inputmode="numeric" placeholder="Cth: 14"
+                                    class="cute-input w-full pl-4 pr-16 py-3 rounded-2xl border-2 border-matcha-100 bg-matcha-50/70 text-matcha-800 font-semibold placeholder:text-matcha-300 placeholder:font-medium">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-matcha-400 pointer-events-none">hari</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2.5" id="dayPresets">
+                                <button type="button" data-days="3" class="px-3 py-1 rounded-full text-xs font-bold bg-cream-100 text-matcha-700 border border-matcha-100 hover:bg-matcha-100 transition-colors">3 hari</button>
+                                <button type="button" data-days="7" class="px-3 py-1 rounded-full text-xs font-bold bg-cream-100 text-matcha-700 border border-matcha-100 hover:bg-matcha-100 transition-colors">7 hari</button>
+                                <button type="button" data-days="14" class="px-3 py-1 rounded-full text-xs font-bold bg-cream-100 text-matcha-700 border border-matcha-100 hover:bg-matcha-100 transition-colors">14 hari</button>
+                                <button type="button" data-days="21" class="px-3 py-1 rounded-full text-xs font-bold bg-cream-100 text-matcha-700 border border-matcha-100 hover:bg-matcha-100 transition-colors">21 hari</button>
+                            </div>
                         </div>
-                        
-                        <button type="submit" 
-                            class="w-full mt-4 bg-matcha-500 hover:bg-matcha-400 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 flex justify-center items-center gap-2 text-lg">
-                            Kira Tempoh Tuai ✨
+
+                        <button type="submit"
+                            class="group w-full !mt-6 bg-matcha-500 hover:bg-matcha-600 text-white font-display font-semibold py-3.5 px-6 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex justify-center items-center gap-2 text-lg">
+                            Kira Tempoh Tuai
+                            <span class="transition-transform group-hover:scale-125" data-emoji="2728" data-char="✨" data-size="26"></span>
                         </button>
                     </form>
 
-                    <button type="button" id="notifyBtn"
-                        class="w-full mt-4 bg-white border-2 border-matcha-200 text-matcha-600 font-semibold py-3 px-6 rounded-2xl hover:bg-matcha-50 transition-colors disabled:opacity-60 disabled:cursor-default relative z-10">
-                        Hidupkan Notifikasi 🔔
-                    </button>
-                    <p class="text-xs text-matcha-500 mt-2 text-center relative z-10">Notifikasi hanya muncul selagi page ini dibuka.</p>
+                    <div class="relative mt-5 pt-5 border-t-2 border-dashed border-matcha-100">
+                        <button type="button" id="notifyBtn"
+                            class="w-full flex items-center justify-center gap-2 bg-peach-50 border-2 border-peach-200 text-peach-500 font-bold py-2.5 px-4 rounded-2xl hover:bg-peach-100 transition-colors disabled:cursor-default disabled:hover:bg-peach-50">
+                            <span data-emoji="1f514" data-char="🔔" data-size="22"></span>
+                            <span id="notifyLabel">Hidupkan Notifikasi</span>
+                        </button>
+                        <p class="text-xs text-matcha-500 mt-2 text-center font-semibold">Notifikasi hanya muncul selagi page ini dibuka.</p>
+                    </div>
                 </div>
-            </div>
+            </aside>
 
-            <!-- Bahagian Dashboard Kad -->
-            <div class="lg:col-span-2">
-                <div id="emptyState" class="h-full min-h-[300px] flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm rounded-[2rem] border-2 border-dashed border-matcha-200 p-8 text-center transition-all duration-500">
-                    <div class="text-6xl mb-4">🪴</div>
-                    <h3 class="text-xl font-bold text-matcha-600 mb-2">Belum ada tanaman dijejaki</h3>
-                    <p class="text-matcha-500">Sila masukkan maklumat di sebelah untuk bermula!</p>
+            <!-- Senarai kad -->
+            <main class="lg:col-span-2">
+                <div id="emptyState" class="min-h-[340px] flex flex-col items-center justify-center bg-white/70 backdrop-blur-sm rounded-[2rem] border-[3px] border-dashed border-matcha-200 p-8 text-center">
+                    <div class="floaty mb-3" data-emoji="1f331" data-char="🌱" data-size="96"></div>
+                    <h3 class="font-display text-2xl font-bold text-matcha-600 mb-2">Belum ada tanaman dijejaki</h3>
+                    <p class="text-matcha-500 font-semibold">Isi borang untuk mula mengira tempoh tuai!</p>
                 </div>
-                
-                <div id="dashboardGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
-                    <!-- Kad-kad tanaman akan dijana di sini melalui JavaScript -->
-                </div>
-            </div>
+
+                <div id="dashboardGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 hidden"></div>
+            </main>
         </div>
+
+        <footer class="text-center mt-12 text-sm font-semibold text-matcha-500 flex items-center justify-center gap-2">
+            Selamat berkebun! <span data-emoji="1f970" data-char="🥰" data-size="22"></span>
+        </footer>
     </div>
 
+    <!-- Toast -->
+    <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-matcha-700 text-white font-bold px-5 py-3 rounded-full shadow-soft-lg flex items-center gap-2 whitespace-nowrap" role="status" aria-live="polite"></div>
+
     <script>
-        // Data tanaman disimpan dalam LocalStorage supaya kekal selepas refresh
+        // ---------- Emoji beranimasi (Noto Animated Emoji dari Google) ----------
+        const EMOJI_BASE = 'https://fonts.gstatic.com/s/e/notoemoji/latest/';
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function emojiHtml(code, char, size) {
+            if (reduceMotion) {
+                return `<span class="emoji-text" style="font-size:${size * 0.82}px;width:${size}px;height:${size}px">${char}</span>`;
+            }
+            return `<img class="emoji" src="${EMOJI_BASE}${code}/512.webp" alt="${char}" width="${size}" height="${size}" loading="lazy" decoding="async" data-fallback="${char}">`;
+        }
+
+        // Tukar semua [data-emoji] kepada emoji beranimasi
+        function hydrateEmoji(root) {
+            root.querySelectorAll('[data-emoji]').forEach(el => {
+                el.innerHTML = emojiHtml(el.dataset.emoji, el.dataset.char, Number(el.dataset.size || 24));
+                el.removeAttribute('data-emoji');
+            });
+        }
+
+        // Jika imej gagal dimuatkan, guna emoji biasa
+        document.addEventListener('error', function(e) {
+            const img = e.target;
+            if (img.tagName !== 'IMG' || !img.dataset.fallback) return;
+            const span = document.createElement('span');
+            span.className = 'emoji-text';
+            const size = Number(img.getAttribute('width')) || 24;
+            span.style.cssText = `font-size:${size * 0.82}px;width:${size}px;height:${size}px`;
+            span.textContent = img.dataset.fallback;
+            img.replaceWith(span);
+        }, true);
+
+        hydrateEmoji(document);
+
+        // ---------- Data ----------
         const STORAGE_KEY = 'pengurusTuai.crops';
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        const SOON_MS = DAY_MS; // < 24 jam dikira "hampir sedia"
         let cropsData = loadCrops();
 
-        // Elemen DOM
         const form = document.getElementById('harvestForm');
         const dashboardGrid = document.getElementById('dashboardGrid');
         const emptyState = document.getElementById('emptyState');
         const notifyBtn = document.getElementById('notifyBtn');
+        const notifyLabel = document.getElementById('notifyLabel');
+        const toast = document.getElementById('toast');
+
+        // Ikon tanaman ikut nama (emoji beranimasi yang tersedia)
+        const CROP_ICONS = [
+            // Cili tiada versi animasi, jadi guna emoji biasa (code: null)
+            { match: /(cili|lada|chili)/i, code: null, char: '🌶️', bg: 'bg-peach-100' },
+            { match: /(bunga|orkid|ros)/i, code: '1f337', char: '🌷', bg: 'bg-peach-100' },
+            { match: /(cendawan|kulat)/i, code: '1f344', char: '🍄', bg: 'bg-peach-100' },
+            { match: /(bayam|sawi|kangkung|kobis|salad|pucuk|ulam|daun)/i, code: '1f96c', char: '🥬', bg: 'bg-matcha-100' },
+            { match: /(herba|serai|pudina|kesum|selasih)/i, code: '1f33f', char: '🌿', bg: 'bg-matcha-100' },
+        ];
+
+        function cropIcon(name) {
+            const found = CROP_ICONS.find(i => i.match.test(name));
+            return found || { code: '1f331', char: '🌱', bg: 'bg-matcha-100' };
+        }
+
+        function iconHtml(icon, size) {
+            if (!icon.code) {
+                return `<span class="emoji-text" style="font-size:${size * 0.82}px;width:${size}px;height:${size}px">${icon.char}</span>`;
+            }
+            return emojiHtml(icon.code, icon.char, size);
+        }
 
         function loadCrops() {
             try {
@@ -164,49 +301,62 @@
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(cropsData));
             } catch (e) {
-                // LocalStorage mungkin disekat (cth: mod peribadi); app masih berfungsi tanpa simpanan
+                // LocalStorage mungkin disekat; app masih berfungsi tanpa simpanan
             }
         }
 
-        // Elak teks pengguna dibaca sebagai HTML
         function escapeHtml(text) {
             const div = document.createElement('div');
-            div.textContent = text;
+            div.textContent = String(text);
             return div.innerHTML;
         }
 
-        // Fungsi format tarikh ke BM
-        function formatDate(dateString) {
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            return new Date(dateString).toLocaleDateString('ms-MY', options);
+        function formatDate(ms) {
+            return new Date(ms).toLocaleDateString('ms-MY', {
+                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+            });
         }
 
-        // ---- Notifikasi ----
+        function formatTime(ms) {
+            return new Date(ms).toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatShort(ms) {
+            return new Date(ms).toLocaleDateString('ms-MY', { day: 'numeric', month: 'short' }) + ', ' + formatTime(ms);
+        }
+
+        function statusOf(crop, now) {
+            const left = crop.harvestTime - now;
+            if (left <= 0) return 'ready';
+            if (left <= SOON_MS) return 'soon';
+            return 'waiting';
+        }
+
+        // ---------- Toast ----------
+        let toastTimer;
+        function showToast(html) {
+            toast.innerHTML = html;
+            toast.classList.remove('hidden', 'toast-in');
+            void toast.offsetWidth;
+            toast.classList.add('toast-in');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.add('hidden'), 2600);
+        }
+
+        // ---------- Notifikasi ----------
         function notificationsSupported() {
             return 'Notification' in window;
         }
 
         function updateNotifyButton() {
-            if (!notificationsSupported()) {
-                notifyBtn.textContent = 'Notifikasi tidak disokong pelayar ini 🚫';
-                notifyBtn.disabled = true;
-            } else if (Notification.permission === 'granted') {
-                notifyBtn.textContent = 'Notifikasi dihidupkan 🔔';
-                notifyBtn.disabled = true;
-            } else if (Notification.permission === 'denied') {
-                notifyBtn.textContent = 'Notifikasi disekat dalam tetapan pelayar 🔕';
-                notifyBtn.disabled = true;
-            } else {
-                notifyBtn.textContent = 'Hidupkan Notifikasi 🔔';
-                notifyBtn.disabled = false;
-            }
+            let label, disabled = true;
+            if (!notificationsSupported()) label = 'Notifikasi tidak disokong';
+            else if (Notification.permission === 'granted') label = 'Notifikasi dihidupkan';
+            else if (Notification.permission === 'denied') label = 'Notifikasi disekat oleh pelayar';
+            else { label = 'Hidupkan Notifikasi'; disabled = false; }
+            notifyLabel.textContent = label;
+            notifyBtn.disabled = disabled;
+            notifyBtn.classList.toggle('opacity-70', disabled);
         }
 
         notifyBtn.addEventListener('click', function() {
@@ -226,7 +376,13 @@
             }
         }
 
-        // Fungsi mengendalikan submit borang
+        // ---------- Borang ----------
+        document.getElementById('dayPresets').addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-days]');
+            if (!btn) return;
+            document.getElementById('safeDays').value = btn.dataset.days;
+        });
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -234,16 +390,16 @@
             const sprayDateStr = document.getElementById('sprayDate').value;
             const safeDays = parseInt(document.getElementById('safeDays').value);
 
-            if(!name || !sprayDateStr || isNaN(safeDays)) return;
+            if (!name || !sprayDateStr || isNaN(safeDays) || safeDays < 0) return;
 
-            // Kira tarikh menuai (tambah milisaat)
             const sprayTime = new Date(sprayDateStr).getTime();
-            const safeDaysMs = safeDays * 24 * 60 * 60 * 1000;
-            const harvestTime = sprayTime + safeDaysMs;
+            const harvestTime = sprayTime + safeDays * DAY_MS;
 
             const newCrop = {
-                id: Date.now().toString(), // ID unik
+                id: Date.now().toString(),
                 name: name,
+                sprayTime: sprayTime,
+                safeDays: safeDays,
                 harvestTime: harvestTime,
                 harvestDateStr: new Date(harvestTime).toISOString(),
                 // Tanaman yang sudah sedia semasa ditambah tidak perlu dinotifikasi
@@ -252,146 +408,185 @@
 
             cropsData.push(newCrop);
             saveCrops();
-            renderCrops();
-            
-            // Reset form dan berikan fokus semula kepada input pertama
+            renderCrops(newCrop.id);
+            showToast(`${emojiHtml('1f389', '🎉', 22)} <span>${escapeHtml(name)} ditambah!</span>`);
+
             form.reset();
             document.getElementById('cropName').focus();
         });
 
-        // Fungsi untuk membina dan memaparkan kad tanaman
-        function renderCrops() {
-            // Uruskan keterlihatan 'empty state' vs grid
-            if (cropsData.length > 0) {
-                emptyState.classList.add('hidden');
-                dashboardGrid.classList.remove('hidden');
-            } else {
-                emptyState.classList.remove('hidden');
-                dashboardGrid.classList.add('hidden');
-            }
+        // ---------- Kad ----------
+        function tileHtml(cls, label) {
+            return `
+                <div class="flex-1 bg-white rounded-2xl py-2 text-center border-2 border-matcha-100">
+                    <div class="${cls} font-display text-2xl font-bold text-matcha-700 tabular-nums">00</div>
+                    <div class="text-[0.62rem] text-matcha-500 font-bold uppercase tracking-wider">${label}</div>
+                </div>`;
+        }
 
-            // Kosongkan grid sebelum render semula
-            dashboardGrid.innerHTML = '';
+        function cardHtml(crop, status) {
+            const icon = cropIcon(crop.name);
+            const hasSpray = typeof crop.sprayTime === 'number';
+            const theme = {
+                waiting: { border: 'border-matcha-100', ribbon: 'bg-matcha-300', chipBg: 'bg-matcha-50 text-matcha-700', chip: `${emojiHtml('23f3', '⏳', 18)} Menunggu`, bar: 'bg-matcha-400' },
+                soon:    { border: 'border-butter-200', ribbon: 'bg-butter-300', chipBg: 'bg-butter-50 text-butter-500', chip: `${emojiHtml('23f0', '⏰', 18)} Hampir sedia`, bar: 'bg-butter-300' },
+                ready:   { border: 'border-matcha-300', ribbon: 'bg-matcha-500', chipBg: 'bg-matcha-500 text-white', chip: `${emojiHtml('2705', '✅', 18)} Sedia`, bar: 'bg-matcha-500' },
+            }[status];
 
-            // Bina setiap kad
-            cropsData.forEach(crop => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-[2rem] p-6 shadow-soft-green border border-matcha-100 flex flex-col justify-between relative overflow-hidden transition-all duration-300 transform hover:scale-[1.02]";
-                
-                // Elemen UI Kad
-                card.innerHTML = `
-                    <div class="absolute -bottom-6 -right-6 text-8xl opacity-10 pointer-events-none">🌿</div>
-                    
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-2xl font-bold text-matcha-800 drop-shadow-sm break-words min-w-0">${escapeHtml(crop.name)}</h3>
-                            <button type="button" data-remove-id="${escapeHtml(crop.id)}" class="text-matcha-300 hover:text-red-400 transition-colors rounded-full p-1 hover:bg-red-50" title="Padam">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
+            return `
+                <div class="h-2 ${theme.ribbon}"></div>
+                <div class="p-5 md:p-6 flex flex-col gap-4 flex-1">
+                    <div class="flex items-start gap-3">
+                        <div class="shrink-0 w-14 h-14 rounded-2xl ${icon.bg} flex items-center justify-center">${iconHtml(icon, 38)}</div>
+                        <div class="min-w-0 flex-1">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-matcha-800 leading-tight break-words">${escapeHtml(crop.name)}</h3>
+                            <span class="mt-1.5 inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${theme.chipBg}">${theme.chip}</span>
                         </div>
-                        
-                        <div class="bg-matcha-50 rounded-2xl p-4 mb-4 border border-matcha-100/50">
-                            <p class="text-xs text-matcha-600 font-semibold uppercase tracking-wider mb-1">Tarikh Selamat Dituai</p>
-                            <p class="text-sm font-bold text-matcha-900">${formatDate(crop.harvestDateStr)}</p>
-                        </div>
+                        <button type="button" data-remove-id="${escapeHtml(crop.id)}" title="Padam" aria-label="Padam ${escapeHtml(crop.name)}"
+                            class="shrink-0 text-matcha-300 hover:text-peach-500 hover:bg-peach-50 transition-colors rounded-xl p-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
                     </div>
+
+                    <div class="bg-cream-50 rounded-2xl px-4 py-3 border-2 border-cream-200">
+                        <p class="text-[0.68rem] text-matcha-500 font-bold uppercase tracking-wider">Selamat dituai</p>
+                        <p class="text-sm font-bold text-matcha-900 mt-0.5">${formatDate(crop.harvestTime)}</p>
+                        <p class="text-sm font-semibold text-matcha-600">pukul ${formatTime(crop.harvestTime)}</p>
+                        ${hasSpray ? `<p class="text-xs font-semibold text-matcha-500 mt-2 flex items-center gap-1">${emojiHtml('1f327_fe0f', '🌧️', 16)} Diracun ${formatShort(crop.sprayTime)} · ${crop.safeDays} hari</p>` : ''}
+                    </div>
+
+                    ${hasSpray ? `
+                    <div>
+                        <div class="flex justify-between text-[0.68rem] font-bold text-matcha-500 uppercase tracking-wider mb-1.5">
+                            <span>Kemajuan</span><span class="progress-label">0%</span>
+                        </div>
+                        <div class="h-3 bg-matcha-50 rounded-full overflow-hidden border border-matcha-100">
+                            <div class="progress-bar h-full rounded-full ${theme.bar} ${status === 'ready' ? '' : 'progress-stripes'} transition-[width] duration-700" style="width:0%"></div>
+                        </div>
+                    </div>` : ''}
 
                     <div class="mt-auto">
-                        <p class="text-xs text-center text-matcha-600 font-bold mb-2">BAKI MASA: ⏱️</p>
-                        <!-- Container untuk Countdown -->
-                        <div class="countdown-container flex justify-between gap-2" data-id="${escapeHtml(crop.id)}" data-target="${Number(crop.harvestTime)}">
-                            <div class="flex-1 bg-white border-2 border-matcha-100 rounded-xl p-2 text-center shadow-sm">
-                                <div class="days text-xl font-bold text-matcha-600">00</div>
-                                <div class="text-[0.65rem] text-matcha-400 font-bold uppercase">Hari</div>
-                            </div>
-                            <div class="flex-1 bg-white border-2 border-matcha-100 rounded-xl p-2 text-center shadow-sm">
-                                <div class="hours text-xl font-bold text-matcha-600">00</div>
-                                <div class="text-[0.65rem] text-matcha-400 font-bold uppercase">Jam</div>
-                            </div>
-                            <div class="flex-1 bg-white border-2 border-matcha-100 rounded-xl p-2 text-center shadow-sm">
-                                <div class="minutes text-xl font-bold text-matcha-600">00</div>
-                                <div class="text-[0.65rem] text-matcha-400 font-bold uppercase">Minit</div>
-                            </div>
-                            <div class="flex-1 bg-white border-2 border-matcha-100 rounded-xl p-2 text-center shadow-sm">
-                                <div class="seconds text-xl font-bold text-matcha-600">00</div>
-                                <div class="text-[0.65rem] text-matcha-400 font-bold uppercase">Saat</div>
-                            </div>
-                        </div>
-                        <!-- Container Mesej Sedia -->
-                        <div class="ready-message hidden mt-3 bg-green-500 text-white text-center py-3 rounded-xl font-bold text-lg ready-pulse shadow-md border-2 border-green-400">
-                            Sedia untuk dituai! ✅
-                        </div>
+                        ${status === 'ready' ? `
+                        <div class="glow bg-gradient-to-r from-matcha-400 to-matcha-500 text-white text-center py-3 rounded-2xl font-display font-semibold text-lg flex items-center justify-center gap-2">
+                            ${emojiHtml('1f973', '🥳', 30)} Sedia untuk dituai!
+                        </div>` : `
+                        <div class="countdown flex gap-2">
+                            ${tileHtml('days', 'Hari')}
+                            ${tileHtml('hours', 'Jam')}
+                            ${tileHtml('minutes', 'Minit')}
+                            ${tileHtml('seconds', 'Saat')}
+                        </div>`}
                     </div>
-                `;
+                </div>`;
+        }
+
+        function renderCrops(newId) {
+            const now = Date.now();
+            const has = cropsData.length > 0;
+            emptyState.classList.toggle('hidden', has);
+            dashboardGrid.classList.toggle('hidden', !has);
+
+            // Sedia dahulu, kemudian yang paling hampir
+            const sorted = [...cropsData].sort((a, b) => {
+                const ra = a.harvestTime <= now, rb = b.harvestTime <= now;
+                if (ra !== rb) return ra ? -1 : 1;
+                return a.harvestTime - b.harvestTime;
+            });
+
+            dashboardGrid.innerHTML = '';
+            sorted.forEach(crop => {
+                const status = statusOf(crop, now);
+                const card = document.createElement('article');
+                card.dataset.id = crop.id;
+                card.dataset.status = status;
+                card.className = `crop-card bg-white rounded-[1.75rem] shadow-soft hover:shadow-soft-lg border-2 overflow-hidden flex flex-col transition-shadow duration-300 ${
+                    status === 'ready' ? 'border-matcha-300' : status === 'soon' ? 'border-butter-200' : 'border-matcha-100'
+                } ${crop.id === newId ? 'pop-in' : ''}`;
+                card.innerHTML = cardHtml(crop, status);
                 dashboardGrid.appendChild(card);
             });
 
-            // Jalankan update segera supaya tidak perlu tunggu 1 saat pertama
+            updateStats(now);
             updateCountdowns();
         }
 
-        // Butang padam (guna delegasi, bukan onclick dalam HTML)
+        function updateStats(now) {
+            const ready = cropsData.filter(c => c.harvestTime <= now).length;
+            document.getElementById('statTotal').textContent = cropsData.length;
+            document.getElementById('statReady').textContent = ready;
+            document.getElementById('statWaiting').textContent = cropsData.length - ready;
+        }
+
+        // Padam kad
         dashboardGrid.addEventListener('click', function(e) {
             const btn = e.target.closest('[data-remove-id]');
             if (!btn) return;
             const id = btn.getAttribute('data-remove-id');
-            cropsData = cropsData.filter(crop => crop.id !== id);
-            saveCrops();
-            renderCrops();
+            const card = btn.closest('.crop-card');
+            const finish = () => {
+                cropsData = cropsData.filter(crop => crop.id !== id);
+                saveCrops();
+                renderCrops();
+            };
+            if (reduceMotion || !card) return finish();
+            card.classList.add('pop-out');
+            setTimeout(finish, 280);
         });
 
-        // Fungsi utama mengemaskini masa setiap saat
+        function setDigit(el, value) {
+            const text = value.toString().padStart(2, '0');
+            if (el.textContent === text) return;
+            el.textContent = text;
+            el.classList.remove('tick');
+            void el.offsetWidth;
+            el.classList.add('tick');
+        }
+
+        // Kemaskini setiap saat
         function updateCountdowns() {
-            const containers = document.querySelectorAll('.countdown-container');
-            const now = new Date().getTime();
+            const now = Date.now();
             let changed = false;
+            let needsRender = false;
 
-            containers.forEach(container => {
-                const target = parseInt(container.getAttribute('data-target'));
-                const distance = target - now;
+            document.querySelectorAll('.crop-card').forEach(card => {
+                const crop = cropsData.find(c => c.id === card.dataset.id);
+                if (!crop) return;
 
-                const readyMsg = container.nextElementSibling; // div.ready-message
+                const status = statusOf(crop, now);
+                if (status !== card.dataset.status) needsRender = true;
 
-                if (distance <= 0) {
-                    // Masa tamat
-                    container.classList.add('hidden');
-                    readyMsg.classList.remove('hidden');
+                if (status === 'ready' && !crop.notified) {
+                    notifyReady(crop);
+                    crop.notified = true;
+                    changed = true;
+                }
 
-                    const crop = cropsData.find(c => c.id === container.getAttribute('data-id'));
-                    if (crop && !crop.notified) {
-                        notifyReady(crop);
-                        crop.notified = true;
-                        changed = true;
-                    }
-                } else {
-                    // Kira d, h, m, s
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                const distance = crop.harvestTime - now;
+                const countdown = card.querySelector('.countdown');
+                if (countdown && distance > 0) {
+                    setDigit(countdown.querySelector('.days'), Math.floor(distance / DAY_MS));
+                    setDigit(countdown.querySelector('.hours'), Math.floor((distance % DAY_MS) / 3600000));
+                    setDigit(countdown.querySelector('.minutes'), Math.floor((distance % 3600000) / 60000));
+                    setDigit(countdown.querySelector('.seconds'), Math.floor((distance % 60000) / 1000));
+                }
 
-                    // Kemaskini DOM
-                    container.querySelector('.days').innerText = days.toString().padStart(2, '0');
-                    container.querySelector('.hours').innerText = hours.toString().padStart(2, '0');
-                    container.querySelector('.minutes').innerText = minutes.toString().padStart(2, '0');
-                    container.querySelector('.seconds').innerText = seconds.toString().padStart(2, '0');
-                    
-                    // Pastikan ia kelihatan jika masa belum tamat
-                    container.classList.remove('hidden');
-                    readyMsg.classList.add('hidden');
+                const bar = card.querySelector('.progress-bar');
+                if (bar && typeof crop.sprayTime === 'number') {
+                    const total = crop.harvestTime - crop.sprayTime;
+                    const pct = total <= 0 ? 100 : Math.min(100, Math.max(0, ((now - crop.sprayTime) / total) * 100));
+                    bar.style.width = pct.toFixed(1) + '%';
+                    card.querySelector('.progress-label').textContent = Math.floor(pct) + '%';
                 }
             });
 
             if (changed) saveCrops();
+            if (needsRender) renderCrops();
         }
 
-        // Paparan awal daripada data tersimpan
         updateNotifyButton();
         renderCrops();
-
-        // Kemaskini setiap saat (1000ms)
         setInterval(updateCountdowns, 1000);
     </script>
 </body>
